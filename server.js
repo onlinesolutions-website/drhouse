@@ -1,11 +1,22 @@
-require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
+const cors = require('cors');
+const path = require('path'); // Add this for path operations
 
 const app = express();
 const PORT = 3000;
 
+// Middleware
+app.use(cors()); // This will handle CORS issues.
 app.use(express.json());
+
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Route to handle GET requests to the root
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 app.post('/api/message', async (req, res) => {
     const userInput = req.body.content;
@@ -18,7 +29,6 @@ app.post('/api/message', async (req, res) => {
                 content: userInput
             }
         ],
-        // ... other parameters
     };
 
     const headers = {
