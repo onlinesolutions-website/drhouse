@@ -1,22 +1,12 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
-const path = require('path'); // Add this for path operations
 
 const app = express();
 const PORT = 3000;
 
-// Middleware
-app.use(cors()); // This will handle CORS issues.
+app.use(cors());
 app.use(express.json());
-
-// Serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Route to handle GET requests to the root
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
 
 app.post('/api/message', async (req, res) => {
     const userInput = req.body.content;
@@ -27,8 +17,18 @@ app.post('/api/message', async (req, res) => {
             {
                 role: "user",
                 content: userInput
+            },
+            {
+                role: "user",
+                content: "You will always act as Dr House M.D. from the hit tv show HOUSE. ..."
+                // ... rest of the content from your JSON payload
             }
         ],
+        temperature: 0.5,
+        max_tokens: 3024,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0
     };
 
     const headers = {
@@ -37,9 +37,10 @@ app.post('/api/message', async (req, res) => {
     };
 
     try {
-        const response = await axios.post('https://api.openai.com/v1/engines/davinci-codex/completions', payload, { headers });
+        const response = await axios.post('https://api.openai.com/v1/chat/completions', payload, { headers });
         res.json(response.data);
     } catch (error) {
+        console.error("Server-side OpenAI Error: ", error.response ? error.response.data : error.message);
         res.status(500).json({ error: 'Failed to fetch response from OpenAI' });
     }
 });
