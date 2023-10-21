@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask Dr. House MD & Team</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Ask Dr. House MD & Team</h1>
+            <p><b>Please be Patient! <br>"If this is an Emergency Please Call 911 or visit your local ER.</b></p>
+        </header>
+
+        <main>
+            <div class="chat-window">
+                <div class="messages">
+                    <!-- Chat messages will be appended here -->
+                </div>
+                <div class="input-area">
+                    <input type="text" id="userInput" placeholder="Type in Your symptoms...">
+                    <button id="sendBtn">Send to Dr. House</button>
+                </div>
+            </div>
+            <!-- Bot's response will be appended here -->
+            <div class="message bot">Dr. House & Team will respond here!</div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
