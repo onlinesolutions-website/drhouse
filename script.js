@@ -1,6 +1,5 @@
 // Assuming Axios is loaded via CDN in the HTML
 require('dotenv').config();
-const axios = require('axios');
 
 const OPENAI_API_KEY = 'YOUR_OPENAI_API_KEY'; // Replace with your actual API key
 const url = 'https://api.openai.com/v1/engines/davinci-codex/completions';
